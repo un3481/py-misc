@@ -993,19 +993,19 @@ class Miscellaneous:
         class Logs(Misc):
 
             # Init Logs
-            def __init__(self):
+            def __init__(self, mysqlconn=None):
 
                 # Set Constructor
                 self.__constructor__ = self.misc.construct(self.Log)
 
-                # Define Authentication
-                self.user = 'root'
-                self.password = 'vet89u43t0jw234erwedf21sd9R78fe2n2084u'
-
                 # Append Object
-                self.mysql = self.misc.mysql(
-                    host = '127.0.0.1', port = '1517', user = self.user,
-                    password = self.password, database = 'bot')
+                if mysqlconn: self.mysql = mysqlconn
+                else: self.mysql = None
+            
+            # Set SQL Connection
+            def sqlconn(self, mysqlconn):
+                self.mysql = mysqlconn
+                return True
 
             # Log Class
             class Log(Misc):
@@ -1025,7 +1025,8 @@ class Miscellaneous:
                     self.__log__ = self.misc.copy.deepcopy(log)
 
                     # Execute
-                    if not self.logs.mysql.conn: mysql = False
+                    if self.logs.mysql == None: mysql = False
+                    if self.logs.mysql and not self.logs.mysql.conn: mysql = False
                     if mysql: self.__mysql__()
                     if console: self()
 
@@ -1041,11 +1042,13 @@ class Miscellaneous:
 
                 @property
                 def __error__(self):
+                    if self.logs.mysql == None: return ''
                     if self.logs.mysql.conn: return ''
                     else: return '(MySQL Error)'
 
                 # Log to MySQL
                 def __mysql__(self):
+                    if self.logs.mysql == None: return None
                     query = 'INSERT INTO logs (Timestamp, App, Log) VALUES (%s, %s, %s)'
                     schema = self.misc.__schema__
                     val = (self.__timestamp__, schema, self.__log__)
@@ -1118,7 +1121,7 @@ class Miscellaneous:
             class Route(Callable):
                 
                 # Init Route
-                def __init__(self, function, route, api, methods):
+                def __init__(self, api, function, route, methods):
 
                     # Check for Callable
                     if (not callable(function) or
@@ -1148,7 +1151,7 @@ class Miscellaneous:
 
                     # Create Dynamic Named Function
                     def __route__():
-                        json = self.__api__.flask.request.json
+                        json = self.__api__.misc.copy.deepcopy(self.__api__.flask.request.json)
                         data = self.__callable__(json)
                         return self.__api__.flask.jsonify(data)
                     __route__.__name__ = route.replace('/','_')
@@ -1173,7 +1176,7 @@ class Miscellaneous:
                 def __decorator__(function):
                     if (not callable(function) or
                         not isinstance(route, str)): return False
-                    __route__ = self.Route(function, route, self, methods)
+                    __route__ = self.Route(self, function, route, methods)
                     self.__routes__[route] = __route__
                     return __route__
                 # Return Decorator
