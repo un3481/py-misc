@@ -1033,7 +1033,7 @@ class Miscellaneous:
                 @property
                 def logs(self): return self.misc.log
 
-                @property
+                @property 
                 def __t__(self):
                     t = self.__timestamp__
                     t =  t.strftime('%m/%d/%Y, %H:%M:%S')
