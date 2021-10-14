@@ -62,6 +62,9 @@ threading.Serial = Serial
 # Import Logs Module
 from ._logs import Logs
 
+# Instance Log Class
+log = Logs()
+
 # Import MySQL Module
 from ._mysql import MySQL
 
