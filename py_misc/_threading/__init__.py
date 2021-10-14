@@ -4,7 +4,7 @@
 ##########################################################################################################################
 
 # Import Miscelllaneous
-import .misc as misc
+import ..misc as misc
 
 # Import Threading Classes
 from ._daemon import Daemon
