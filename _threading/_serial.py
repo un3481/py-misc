@@ -39,7 +39,7 @@ class Serial(Cycle):
     def add(self, function):
         # Check for Callable
         if not callable(function): return False
-        function = self.threading.promise(function, False)
+        function = self.threading.Promise(function, False)
         self.__queue__.put(function)
         # Return Promise
         return function

@@ -28,7 +28,7 @@ class Async(Caller):
             __caller__ = self.misc.call.Caller(obj.__callable__)
             __caller__.__pass__ = True
             __caller__.setargs(*obj.iargs, **obj.ikwargs)
-            return self.threading.promise(__caller__)
+            return self.threading.Promise(__caller__)
 
     @property
     def threading(self):
