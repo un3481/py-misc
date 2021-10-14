@@ -15,8 +15,6 @@ class Logs(Misc):
 
     # Init Logs
     def __init__(self, mysqlconn=None):
-        # Set Constructor
-        self.__constructor__ = self.misc.construct(self.Log)
         # Append Object
         if mysqlconn: self.mysql = mysqlconn
         else: self.mysql = None
@@ -85,7 +83,7 @@ class Logs(Misc):
 
     # Instance Object
     def __call__(self, *args, **kwargs):
-        return self.__constructor__(*args, **kwargs)
+        return self.Log(*args, **kwargs)
     
 ##########################################################################################################################
 #                                                           LOGS                                                         #
