@@ -9,5 +9,5 @@ setup(
     description='Miscellaneous Library to Simplify Python Code',
     author='anthony',
     url='https://github.com/anthony-freitas/py-misc',
-    packages=['py_misc','_call','_threading','_time']
+    packages=['py_misc','py_misc/_call','py_misc/_threading','py_misc/_time']
 )
