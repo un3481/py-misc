@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(
-    name='py-misc',
+    name='py_misc',
     version='1.3.0',
     license='MIT',
     description='Miscellaneous Library to Simplify Python Code',
