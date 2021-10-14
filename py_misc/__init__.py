@@ -60,16 +60,16 @@ threading.Cycle = Cycle
 threading.Serial = Serial
 
 # Import Logs Module
-from .logs import Logs
+from ._logs import Logs
 
 # Import MySQL Module
-from .mysql import MySQL
+from ._mysql import MySQL
 
 # Import API Module
-from .api import API
+from ._api import API
 
 # Import Schedule Module
-from .schedule import Each
+from ._schedule import Each
 
 # Nest Schedule Module
 schedule.each = Each()
