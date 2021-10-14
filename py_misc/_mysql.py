@@ -19,7 +19,7 @@ class MySQL(Misc):
         self.args = args
         self.kwargs = kwargs
         # Start Thread
-        self.__series__ = self.misc.threading.serial()
+        self.__series__ = self.misc.threading.Serial()
 
     @property
     def connector(self):

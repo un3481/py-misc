@@ -60,7 +60,7 @@ class API(Misc):
                 return None
             
             # Set Callable
-            self.__callable__ = self.misc.call.safe(function)
+            self.__callable__ = self.misc.call.Safe(function)
             # Set API
             self.__api__ = api
             self.__route__ = str(route)
@@ -113,7 +113,7 @@ class API(Misc):
         if (self.__host__ == None or
             self.__port__ == None): return False
         try: # Start Server on Daemon Thread
-            self.__thread__ = self.misc.threading.daemon(
+            self.__thread__ = self.misc.threading.Daemon(
                 lambda: self.__app__.run(host=self.__host__, port=self.__port__)
             )
         except: return False
