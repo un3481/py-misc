@@ -37,7 +37,7 @@ import re
 flask.httpauth = flask_httpauth
 
 # Import Time Module
-from ._time import Delta
+from _time import Delta
 
 # Nest Time Module
 time.Delta = Delta
@@ -46,11 +46,11 @@ time.Delta = Delta
 import _call as call
 
 # Import Threading Module
-from ._threading import Daemon
-from ._threading import Promise
-from ._threading import Async
-from ._threading import Cycle
-from ._threading import Serial
+from _threading import Daemon
+from _threading import Promise
+from _threading import Async
+from _threading import Cycle
+from _threading import Serial
 
 # Nest Threading Module
 threading.Daemon = Daemon
@@ -77,22 +77,8 @@ schedule.__thread__ = threading.Cycle(
     schedule.run_pending, delay=1
 )
 
-##########################################################################################################################
-#                                                         REFERENCE                                                      #
-##########################################################################################################################
-
-# Get Miscellaneous Reference
-def misc():
-    import py_misc as misc
-    return misc
-
-# Reference to Miscellaneous
-class Misc:
-    @property
-    def misc(self): return misc()
-    @property
-    def __locale__(self):
-        return self.misc.locale(self)
+# Import Misc Reference Class
+from .misc import Misc
 
 ##########################################################################################################################
 #                                                       MISC METHODS                                                     #
