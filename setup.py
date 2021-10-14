@@ -9,5 +9,5 @@ setup(
     description='Miscellaneous Library to Simplify Python Code',
     author='anthony',
     url='https://github.com/anthony-freitas/py-misc',
-    packages=['.']
+    packages=['py_misc']
 )
