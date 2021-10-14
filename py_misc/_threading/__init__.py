@@ -4,7 +4,7 @@
 ##########################################################################################################################
 
 # Import Miscelllaneous
-import ..misc as misc
+from ..py_misc import threading
 
 # Import Threading Classes
 from ._daemon import Daemon
@@ -24,8 +24,8 @@ def wait_all(promises):
 
 # Current Thread is Main
 def is_main():
-    cur = misc.threading.current_thread()
-    main = misc.threading.main_thread()
+    cur = threading.current_thread()
+    main = threading.main_thread()
     return cur is main
 
 ##########################################################################################################################

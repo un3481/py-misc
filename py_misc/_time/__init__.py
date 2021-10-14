@@ -3,9 +3,6 @@
 #                                                        DELTA TIME                                                      #
 ##########################################################################################################################
 
-# Cyclic Reference
-from ..misc import Misc
-
 # Import Time Classes
 from ._delta import Delta
 
