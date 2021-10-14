@@ -3,8 +3,8 @@
 #                                                          DAEMON                                                        #
 ##########################################################################################################################
 
-# Import Miscelllaneous
-from ..py_misc import threading
+# Import Threading
+import threading
 
 # Import Threading Classes
 from ._daemon import Daemon

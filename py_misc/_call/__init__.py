@@ -3,9 +3,6 @@
 #                                                          CALLABLE                                                      #
 ##########################################################################################################################
 
-# Cyclic Reference
-from ..misc import Misc
-
 # Import Call Classes
 from ._callable import Callable
 from ._caller import Caller
