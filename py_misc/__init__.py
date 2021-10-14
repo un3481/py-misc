@@ -78,7 +78,7 @@ schedule.__thread__ = threading.Cycle(
 )
 
 # Import Misc Reference Class
-from .misc import Misc
+from ._misc import Misc
 
 ##########################################################################################################################
 #                                                       MISC METHODS                                                     #
