@@ -6,7 +6,7 @@ setup(
     name='py_misc',
     version='1.3.1',
     license='MIT',
-    description='Miscellaneous Library to Simplify Python Code',
+    description='Python Miscellaneous Library',
     author='anthony',
     url='https://github.com/anthony-freitas/py-misc',
     packages=[
