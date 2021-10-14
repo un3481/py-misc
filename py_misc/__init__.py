@@ -43,7 +43,7 @@ from ._time import Delta
 time.Delta = Delta
 
 # Import Call Module
-import ._call as call
+import py_misc._call as call
 
 # Import Threading Module
 from ._threading import Daemon
