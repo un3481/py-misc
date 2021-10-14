@@ -38,7 +38,7 @@ class Try(Resolvable):
         # Set Parameters
         self.__times__ = int(3)
         self.__delay__ = float(0)
-        self.__delta__ = self.misc.time.delta()
+        self.__delta__ = self.misc.time.Delta()
         self.__timeout__ = self.misc.datetime.timedelta(seconds=60)
         # Call Setters
         self.times(times)
