@@ -13,7 +13,7 @@ from ..misc import Misc
 class Callable(Misc):
 
     # Init Callable
-    def __init__(self, function: function):
+    def __init__(self, function):
         # Check Parameters
         if not callable(function):
             self = False
