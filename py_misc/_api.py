@@ -51,7 +51,7 @@ class API(Misc):
         return self
     
     # Add Route to App
-    def add(
+    def route(
         self,
         route: str,
         methods: list[str] = ['GET', 'POST']
