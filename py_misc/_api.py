@@ -6,6 +6,8 @@
 # Imports
 from ._misc import Misc
 from py_misc._call import Callable
+from typing import Any, Callable as CallableType
+import flask
 
 ##########################################################################################################################
 #                                                            API                                                         #
@@ -48,60 +50,18 @@ class API(Misc):
         self.__port__ = port
         return self
     
-    # Route Class
-    class Route(Callable):
-        
-        # Init Route
-        def __init__(self, api, function, route, methods):
-            # Check for Callable
-            if (not callable(function) or
-                not isinstance(route, str)):
-                self = False
-                return None
-            
-            # Set Callable
-            self.__callable__ = self.misc.call.Safe(function)
-            # Set API
-            self.__api__ = api
-            self.__route__ = str(route)
-            self.__auth__ = self.__api__.httpauth.HTTPBasicAuth()
-            # Set Auth Params
-            self.user(None).password(None)
-            # Auth Verify
-            @self.__auth__.verify_password
-            def __auth__(user, password):
-                a = (self.__user__ == user or
-                    self.__user__ == None)
-                b = (self.__password__ == password or
-                    self.__password__ == None)
-                if a and b: return user
-            # Create Dynamic Named Function
-            def __route__():
-                json = self.__api__.misc.copy.deepcopy(self.__api__.flask.request.json)
-                data = self.__callable__(json)
-                return self.__api__.flask.jsonify(data)
-            __route__.__name__ = route.replace('/','_')
-            # Route Flask App
-            self.__api__.__app__.route(self.__route__, methods=methods)(
-                self.__auth__.login_required(__route__)
-            )
-
-        # Set User
-        def user(self, user):
-            self.__user__ = user
-            return self
-
-        # Set Password
-        def password(self, password):
-            self.__password__ = password
-            return self
-    
     # Add Route to App
-    def add(self, route, methods=['GET', 'POST']):
-        def __decorator__(function):
+    def add(
+        self,
+        route: str,
+        methods: list[str] = ['GET', 'POST']
+    ):
+        def __decorator__(
+            function: CallableType[[flask.Request, flask.Response], Any]
+        ):
             if (not callable(function) or
                 not isinstance(route, str)): return False
-            __route__ = self.Route(self, function, route, methods)
+            __route__ = Route(self, function, route, methods)
             self.__routes__[route] = __route__
             return __route__
         # Return Decorator
@@ -119,3 +79,60 @@ class API(Misc):
         except: return False
         # Return True
         return True
+    
+##########################################################################################################################
+    
+# Route Class
+class Route(Callable):
+        
+    # Init Route
+    def __init__(
+        self,
+        api: API,
+        function: CallableType[[flask.Request, flask.Response], Any],
+        route: str,
+        methods: list[str]
+    ):
+        # Check for Callable
+        if (not callable(function) or
+            not isinstance(route, str)):
+            self = False
+            return None
+        
+        # Set Callable
+        self.__callable__ = self.misc.call.Safe(function)
+        # Set API
+        self.__api__ = api
+        self.__route__ = str(route)
+        self.__auth__ = self.__api__.httpauth.HTTPBasicAuth()
+        # Set Auth Params
+        self.user(None).password(None)
+        # Auth Verify
+        @self.__auth__.verify_password
+        def __auth__(user, password):
+            a = (self.__user__ == user or
+                self.__user__ == None)
+            b = (self.__password__ == password or
+                self.__password__ == None)
+            if a and b: return user
+        # Create Dynamic Named Function
+        def __route__():
+            req = self.__api__.flask.request
+            res = self.__api__.flask.Response
+            return self.__callable__(req, res)
+        # Set Dynamic Route Name
+        __route__.__name__ = route.replace('/','_')
+        # Route Flask App
+        self.__api__.__app__.route(self.__route__, methods=methods)(
+            self.__auth__.login_required(__route__)
+        )
+    # Set User
+    def user(self, user):
+        self.__user__ = user
+        return self
+    # Set Password
+    def password(self, password):
+        self.__password__ = password
+        return self
+    
+##########################################################################################################################
