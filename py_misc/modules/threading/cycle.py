@@ -21,7 +21,7 @@ class Cycle(daemon.Daemon):
             self = False
             return None
         # Set Cyclic Try
-        self.__try__ = self.misc.call.Try(function=function)
+        self.__try__ = self.misc.call.Repeat(function=function)
         self.__try__.times(None).delay(delay).timeout(None)
         self.__try__.condition(lambda obj: False)
         # Set Thread Object
