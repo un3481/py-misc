@@ -7,7 +7,7 @@ from typing import Any, Callable as CallableType
 
 # Modules
 from . import misc
-from . import call
+from .call import Callable
 
 ##########################################################################################################################
 #                                                            API                                                         #
@@ -83,8 +83,8 @@ class API(misc.Misc):
 ##########################################################################################################################
     
 # Route Class
-class Route(call.Callable):
-        
+class Route(Callable):
+
     # Init Route
     def __init__(
         self,
