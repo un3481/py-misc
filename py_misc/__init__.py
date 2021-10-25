@@ -24,9 +24,8 @@ import threading
 import schedule
 
 # Modules
-from . import call
 from . import api
-from . import misc
+from . import call
 from . import logs
 from . import time as _time
 from . import mysql as mysql
@@ -36,9 +35,6 @@ from . import schedule as _schedule
 ##########################################################################################################################
 #                                                        NEST MODULES                                                    #
 ##########################################################################################################################
-
-# Nest Reference Class
-Misc = misc.Misc
 
 # Nest Time Module
 time.Delta = _time.Delta
