@@ -24,13 +24,13 @@ import threading
 import schedule
 
 # Modules
-from . import api
-from . import call
-from . import logs
-from . import time as _time
-from . import mysql as mysql
-from . import threading as _threading
-from . import schedule as _schedule
+from .modules import api
+from .modules import call
+from .modules import logs
+from .modules import time as _time
+from .modules import mysql as mysql
+from .modules import threading as _threading
+from .modules import schedule as _schedule
 
 ##########################################################################################################################
 #                                                        NEST MODULES                                                    #
