@@ -9,5 +9,11 @@ setup(
     description='Python Miscellaneous Library',
     author='anthony',
     url='https://github.com/anthony-freitas/py-misc',
-    packages=['py_misc']
+    packages=[
+        'py_misc',
+        'py_misc/modules',
+        'py_misc/modules/call',
+        'py_misc/modules/time',
+        'py_misc/modules/threading'
+    ]
 )
