@@ -7,7 +7,7 @@ from typing import Any, Callable as CallableType
 
 # Modules
 from . import misc
-from .. import call
+from . import call
 
 ##########################################################################################################################
 #                                                            API                                                         #
