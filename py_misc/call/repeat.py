@@ -4,14 +4,14 @@
 ##########################################################################################################################
 
 # Cyclic Reference
-from ._resolvable import Resolvable
+from . import resolvable
 
 ##########################################################################################################################
 #                                                            TRY                                                         #
 ##########################################################################################################################
 
 # Try Class
-class Try(Resolvable):
+class Repeat(resolvable.Resolvable):
 
     # Init Daemon
     def __init__(self, times=3, delay=1, timeout=60, function=None, condition=None):

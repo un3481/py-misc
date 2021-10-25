@@ -4,14 +4,14 @@
 ##########################################################################################################################
 
 # Cyclic Reference
-from ._callable import Callable
+from . import _callable
 
 ##########################################################################################################################
 #                                                         RESOLVABLE                                                     #
 ##########################################################################################################################
 
 # Resolvable Class
-class Resolvable(Callable):
+class Resolvable(_callable.Callable):
 
     # Init Resolvable
     def __init__(self, function, log=True):

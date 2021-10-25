@@ -4,8 +4,8 @@
 
 # Get Miscellaneous Reference
 def misc():
-    import py_misc as misc
-    return misc
+    import py_misc
+    return py_misc
 
 # Reference to Miscellaneous
 class Misc:

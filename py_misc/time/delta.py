@@ -4,14 +4,14 @@
 ##########################################################################################################################
 
 # Cyclic Reference
-from .._misc import Misc
+from .. import misc
 
 ##########################################################################################################################
 #                                                        DELTA TIME                                                      #
 ##########################################################################################################################
 
 # Delta Class
-class Delta(Misc):
+class Delta(misc.Misc):
 
     # Init Delta
     def __init__(self):
@@ -21,7 +21,7 @@ class Delta(Misc):
     def reset(self): self.since.reset()
 
     # Since Class
-    class Since(Misc):
+    class Since(misc.Misc):
 
         # Init Since
         def __init__(self): self.reset()

@@ -4,14 +4,14 @@
 ##########################################################################################################################
 
 # Cyclic Reference
-from ._misc import Misc
+from . import misc
 
 ##########################################################################################################################
 #                                                          SCHEDULE                                                      #
 ##########################################################################################################################
 
 # Each Class
-class Each(Misc):
+class Each(misc.Misc):
     
     # Properties
     @property
@@ -36,7 +36,7 @@ class Each(Misc):
     def ten(self): return self.Every(10)
     
     # Every Class
-    class Every(Misc):
+    class Every(misc.Misc):
 
         @property
         def schedule(self): return self.misc.schedule
@@ -68,7 +68,7 @@ class Each(Misc):
             self.step = step
 
         # Period Class
-        class Period(Misc):
+        class Period(misc.Misc):
 
             # Init Period
             def __init__(self, period, every):
@@ -80,7 +80,7 @@ class Each(Misc):
                 return self.Do(self.period, self.every)
 
             # Do Class
-            class Do(Misc):
+            class Do(misc.Misc):
 
                 # Init Do
                 def __init__(self, period, every):

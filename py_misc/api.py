@@ -1,20 +1,20 @@
 
 ##########################################################################################################################
-#                                                            API                                                         #
-##########################################################################################################################
 
 # Imports
-from ._misc import Misc
-from py_misc._call import Callable
-from typing import Any, Callable as CallableType
 import flask
+from typing import Any, Callable as CallableType
+
+# Modules
+from . import misc
+from .. import call
 
 ##########################################################################################################################
 #                                                            API                                                         #
 ##########################################################################################################################
 
 # API Class
-class API(Misc):
+class API(misc.Misc):
     # Init API
     def __init__(self, log=True):
         # Check Parameters
@@ -83,7 +83,7 @@ class API(Misc):
 ##########################################################################################################################
     
 # Route Class
-class Route(Callable):
+class Route(call.Callable):
         
     # Init Route
     def __init__(
