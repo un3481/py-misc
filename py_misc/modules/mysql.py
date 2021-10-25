@@ -6,7 +6,7 @@ import mysql.connector
 
 # Modules
 from . import misc
-from . import _threading
+from . import threading as _threading
 
 ##########################################################################################################################
 #                                                           MySQL                                                        #
