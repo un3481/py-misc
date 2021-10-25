@@ -3,7 +3,10 @@
 #                                                          SCHEDULE                                                      #
 ##########################################################################################################################
 
-# Cyclic Reference
+# Imports
+from typing import Callable, Any
+
+# Modules
 from . import misc
 
 ##########################################################################################################################
@@ -64,14 +67,14 @@ class Each(misc.Misc):
         def weeks(self): return self.Period('weeks', self.every)
         
         # Init Every
-        def __init__(self, step):
+        def __init__(self, step: int):
             self.step = step
 
         # Period Class
         class Period(misc.Misc):
 
             # Init Period
-            def __init__(self, period, every):
+            def __init__(self, period: str, every):
                 self.period = period
                 self.every = every
             
@@ -83,7 +86,7 @@ class Each(misc.Misc):
             class Do(misc.Misc):
 
                 # Init Do
-                def __init__(self, period, every):
+                def __init__(self, period: str, every):
                     self.period = period
                     self.every = every
 
@@ -92,8 +95,8 @@ class Each(misc.Misc):
                     return getattr(self.every, self.period)
 
                 # Do At
-                def at(self, time):
-                    def __decorator__(function):
+                def at(self, time: str):
+                    def __decorator__(function: Callable[[], Any]):
                         if not callable(function): return False
                         function = self.misc.call.Safe(function)
                         fasync = self.misc.threading.Async(function)
