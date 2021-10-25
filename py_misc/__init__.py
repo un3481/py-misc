@@ -24,8 +24,8 @@ import threading
 import schedule
 
 # Modules
-from . import call
 from . import api
+from . import call
 from . import misc
 from . import logs
 from . import time as _time
