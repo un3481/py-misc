@@ -9,7 +9,7 @@ import inspect
 # Modules
 from . import safe
 from . import resolvable
-from . import getcallable
+from . import methods
 
 ##########################################################################################################################
 #                                                          CALLER                                                        #
@@ -41,7 +41,7 @@ class Caller(resolvable.Resolvable):
     # Set Caller Arguments
     def setargs(self, *args, **kwargs):
         _params = (list(), dict())
-        _call = getcallable(self.__callable__)
+        _call = methods.getcallable(self.__callable__)
         params = inspect.getargspec(_call)[0]
         # Set Keyword Arguments
         for key in kwargs:
