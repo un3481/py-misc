@@ -1,9 +1,8 @@
 
 ##########################################################################################################################
-#                                                          DAEMON                                                        #
-##########################################################################################################################
 
-# Import Resolvable
+# Modules
+from .. import call
 from . import daemon
 
 ##########################################################################################################################
@@ -21,7 +20,7 @@ class Promise(daemon.Daemon):
             self = False
             return None
         # Set Caller
-        self.__caller__ = self.misc.call.Caller(function, log=False)
+        self.__caller__ = call.Caller(function, log=False)
         self.__caller__.__pass__ = True
         # Set Caller Arguments
         self.__caller__.setargs(*self.args, **self.kwargs)
@@ -69,7 +68,7 @@ class Promise(daemon.Daemon):
     def __settrig__(self, function, resolve):
         # Nest Objects
         if not callable(function): return None
-        function = self.misc.call.Safe(function)
+        function = call.Safe(function)
         if resolve: self.__then__ = function
         else: self.__catch__ = function
         # Return Thread
@@ -82,6 +81,4 @@ class Promise(daemon.Daemon):
         # Return Resolution
         return self.resolution
     
-##########################################################################################################################
-#                                                         PROMISE                                                        #
 ##########################################################################################################################

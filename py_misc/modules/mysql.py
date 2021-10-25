@@ -1,8 +1,12 @@
 
 ##########################################################################################################################
 
+# Imports
+import mysql.connector
+
 # Modules
 from . import misc
+from . import _threading
 
 ##########################################################################################################################
 #                                                           MySQL                                                        #
@@ -17,11 +21,11 @@ class MySQL(misc.Misc):
         self.args = args
         self.kwargs = kwargs
         # Start Thread
-        self.__series__ = self.misc.threading.Serial()
+        self.__series__ = _threading.Serial()
 
     @property
     def connector(self):
-        return self.misc.__mysql__.connector
+        return mysql.connector
 
     @property
     def conn(self):

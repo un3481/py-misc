@@ -1,9 +1,10 @@
 
 ##########################################################################################################################
-#                                                           ASYNC                                                        #
-##########################################################################################################################
 
-# Import Caller
+# Import
+import threading
+
+# Modules
 from .. import call
 
 ##########################################################################################################################
@@ -25,15 +26,13 @@ class Async(call.Caller):
         # Caller to Promise
         @self.call
         def __promise__(obj):
-            __caller__ = self.misc.call.Caller(obj.__callable__)
+            __caller__ = call.Caller(obj.__callable__)
             __caller__.__pass__ = True
             __caller__.setargs(*obj.iargs, **obj.ikwargs)
             return self.threading.Promise(__caller__)
 
     @property
     def threading(self):
-        return self.misc.threading
+        return threading
             
-##########################################################################################################################
-#                                                           ASYNC                                                        #
 ##########################################################################################################################

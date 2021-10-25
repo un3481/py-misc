@@ -4,10 +4,13 @@
 ##########################################################################################################################
 
 # Imports
+import schedule
 from typing import Callable, Any
 
 # Modules
 from . import misc
+from . import call
+from . import threading as _threading
 
 ##########################################################################################################################
 #                                                          SCHEDULE                                                      #
@@ -42,7 +45,7 @@ class Each(misc.Misc):
     class Every(misc.Misc):
 
         @property
-        def schedule(self): return self.misc.schedule
+        def schedule(self): return schedule
         @property
         def every(self): return self.schedule.every(self.step)
         @property
@@ -98,8 +101,8 @@ class Each(misc.Misc):
                 def at(self, time: str):
                     def __decorator__(function: Callable[[], Any]):
                         if not callable(function): return False
-                        function = self.misc.call.Safe(function)
-                        fasync = self.misc.threading.Async(function)
+                        function = call.Safe(function)
+                        fasync = _threading.Async(function)
                         self.__act__.at(time).do(fasync)
                         return function
                     return __decorator__
@@ -107,8 +110,8 @@ class Each(misc.Misc):
                 # Do
                 def __call__(self, function):
                     if not callable(function): return False
-                    function = self.misc.call.Safe(function)
-                    fasync = self.misc.threading.Async(function)
+                    function = call.Safe(function)
+                    fasync = _threading.Async(function)
                     self.__act__.do(fasync)
                     return function
                 

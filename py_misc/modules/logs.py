@@ -1,6 +1,10 @@
 
 ##########################################################################################################################
 
+# Imports
+import copy
+import datetime
+
 # Modules
 from . import misc
 
@@ -34,8 +38,8 @@ class Logs(misc.Misc):
                 self = False
                 return None
             # Get Timestamp
-            self.__timestamp__ = self.misc.datetime.datetime.now()
-            self.__log__ = self.misc.copy.deepcopy(log)
+            self.__timestamp__ = datetime.datetime.now()
+            self.__log__ = copy.deepcopy(log)
             # Execute
             if self.logs.mysql == None: mysql = False
             if self.logs.mysql and not self.logs.mysql.conn: mysql = False
@@ -63,7 +67,7 @@ class Logs(misc.Misc):
         def __mysql__(self):
             if self.logs.mysql == None: return None
             query = 'INSERT INTO logs (Timestamp, App, Log) VALUES (%s, %s, %s)'
-            schema = self.misc.__schema__
+            schema = self.misc.__schema__()
             val = (self.__timestamp__, schema, self.__log__)
             e = self.logs.mysql.execute(query, val)
             return e

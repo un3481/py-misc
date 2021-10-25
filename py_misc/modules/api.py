@@ -3,11 +3,14 @@
 
 # Imports
 import flask
+import logging
+import flask_httpauth
 from typing import Any, Callable as CallableType
 
 # Modules
 from . import misc
 from . import call
+from . import threading as _threading
 
 ##########################################################################################################################
 #                                                            API                                                         #
@@ -26,7 +29,7 @@ class API(misc.Misc):
         # Remove Flask Logging
         if not log:
             self.__app__.logger.disabled = True
-            self.misc.logging.getLogger('werkzeug').disabled = True
+            logging.getLogger('werkzeug').disabled = True
         # Set Routes Dictionary
         self.__routes__ = dict()
         # Set Server Params
@@ -34,11 +37,11 @@ class API(misc.Misc):
 
     @property
     def flask(self):
-        return self.misc.flask
+        return flask
     
     @property
     def httpauth(self):
-        return self.misc.flask.httpauth
+        return flask_httpauth
     
     # Set Host
     def host(self, host):
@@ -73,7 +76,7 @@ class API(misc.Misc):
         if (self.__host__ == None or
             self.__port__ == None): return False
         try: # Start Server on Daemon Thread
-            self.__thread__ = self.misc.threading.Daemon(
+            self.__thread__ = _threading.Daemon(
                 lambda: self.__app__.run(host=self.__host__, port=self.__port__)
             )
         except: return False
@@ -100,7 +103,7 @@ class Route(call.Callable):
             return None
         
         # Set Callable
-        self.__callable__ = self.misc.call.Safe(function)
+        self.__callable__ = call.Safe(function)
         # Set API
         self.__api__ = api
         self.__route__ = str(route)

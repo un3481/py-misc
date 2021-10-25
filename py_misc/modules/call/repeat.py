@@ -1,9 +1,13 @@
 
 ##########################################################################################################################
-#                                                            TRY                                                         #
-##########################################################################################################################
 
-# Cyclic Reference
+# Imports
+import time
+import datetime
+
+# Modules
+from .. import time as _time
+from . import safe
 from . import resolvable
 
 ##########################################################################################################################
@@ -29,7 +33,7 @@ class Repeat(resolvable.Resolvable):
         if function == None: function = (lambda: None)
         if condition == None: condition = (lambda obj: obj.resolved)
         # Init Resolvable
-        function = self.misc.call.Safe(function, False)
+        function = safe.Safe(function, False)
         super().__init__(function, False)
         # Set Bypass to False
         self.__pass__ = False
@@ -38,8 +42,8 @@ class Repeat(resolvable.Resolvable):
         # Set Parameters
         self.__times__ = int(3)
         self.__delay__ = float(0)
-        self.__delta__ = self.misc.time.Delta()
-        self.__timeout__ = self.misc.datetime.timedelta(seconds=60)
+        self.__delta__ = _time.Delta()
+        self.__timeout__ = datetime.timedelta(seconds=60)
         # Call Setters
         self.times(times)
         self.delay(delay)
@@ -68,14 +72,14 @@ class Repeat(resolvable.Resolvable):
 
     # Timeout Setter
     def timeout(self, timeout):
-        td = self.misc.datetime.timedelta
+        td = datetime.timedelta
         if (not isinstance(timeout, int) and
             not isinstance(timeout, float) and
             not isinstance(timeout, td) and
             timeout != None): return False
         # Set Timeout
         if not isinstance(timeout, td) and timeout != None:
-            timeout = self.misc.datetime.timedelta(seconds=timeout)
+            timeout = datetime.timedelta(seconds=timeout)
         self.__timeout__ = timeout
         # Return Self
         return self
@@ -88,7 +92,7 @@ class Repeat(resolvable.Resolvable):
         # Fix None Function
         function = (function if function != None
             else (lambda: None))
-        function = self.misc.call.Safe(function)
+        function = safe.Safe(function)
         self.__callable__ = function
         return function
 
@@ -100,7 +104,7 @@ class Repeat(resolvable.Resolvable):
         # Fix None Function
         function = (function if function != None
             else (lambda obj: obj.resolved))
-        function = self.misc.call.Safe(function)
+        function = safe.Safe(function)
         self.__condition__ = function
         return function
 
@@ -130,13 +134,11 @@ class Repeat(resolvable.Resolvable):
             condition = self.__condition__(self.__callable__)
             if condition: self.__resolve__(value)
             # Wait Delay
-            self.misc.time.sleep(self.__delay__)
+            time.sleep(self.__delay__)
         # Reject
         if not self.resolved:
             self.__reject__('Max Attempts Exeeded')
         # Return Resolution
         return self.resolution
     
-##########################################################################################################################
-#                                                            TRY                                                         #
 ##########################################################################################################################

@@ -3,7 +3,10 @@
 #                                                        DELTA TIME                                                      #
 ##########################################################################################################################
 
-# Cyclic Reference
+# Imports
+import datetime
+
+# Modules
 from .. import misc
 
 ##########################################################################################################################
@@ -28,18 +31,18 @@ class Delta(misc.Misc):
 
         # Reset Delta
         def reset(self):
-            self.__start__ = self.misc.datetime.datetime.now()
-            self.__last__ = self.misc.datetime.datetime.now()
+            self.__start__ = datetime.datetime.now()
+            self.__last__ = datetime.datetime.now()
             self.__delta__ = (self.__last__ - self.__start__)
 
         @property
         def init(self):
-            self.__last__ = self.misc.datetime.datetime.now()
+            self.__last__ = datetime.datetime.now()
             return (self.__last__ - self.__start__)
 
         @property
         def last(self):
-            now = self.misc.datetime.datetime.now()
+            now = datetime.datetime.now()
             self.__delta__ = (now - self.__last__)
             self.__last__ = now
             return self.__delta__

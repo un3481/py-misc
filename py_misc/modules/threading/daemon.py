@@ -1,9 +1,10 @@
 
 ##########################################################################################################################
-#                                                          DAEMON                                                        #
-##########################################################################################################################
 
-# Import Resolvable
+# Imports
+import threading
+
+# Modules
 from .. import call
 
 ##########################################################################################################################
@@ -22,7 +23,7 @@ class Daemon(call.Resolvable):
             self = False
             return None
         # Init Resolvable
-        function = self.misc.call.Safe(function, log)
+        function = call.Safe(function, log)
         super().__init__(function, log)
         # Set Thread
         self.__thread__ = self.threading.Thread(target=self.__callable__)
@@ -32,7 +33,7 @@ class Daemon(call.Resolvable):
 
     @property
     def threading(self):
-        return self.misc.threading
+        return threading
 
     @property
     def start(self):
@@ -46,6 +47,4 @@ class Daemon(call.Resolvable):
     def join(self):
         return self.__thread__.join
 
-##########################################################################################################################
-#                                                          DAEMON                                                        #
 ##########################################################################################################################

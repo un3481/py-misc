@@ -3,8 +3,13 @@
 #                                                          CALLER                                                        #
 ##########################################################################################################################
 
-# Cyclic Reference
+# Imports
+import inspect
+
+# Modules
+from . import safe
 from . import resolvable
+from . import getcallable
 
 ##########################################################################################################################
 #                                                          CALLER                                                        #
@@ -21,7 +26,7 @@ class Caller(resolvable.Resolvable):
             self = False
             return None
         # Init Resolvable
-        function = self.misc.call.Safe(function, log)
+        function = safe.Safe(function, log)
         super().__init__(function, log)
         # Set Default Caller
         self.call(lambda obj: obj.__callable__(*obj.args, **obj.kwargs))
@@ -36,8 +41,8 @@ class Caller(resolvable.Resolvable):
     # Set Caller Arguments
     def setargs(self, *args, **kwargs):
         _params = (list(), dict())
-        _call = self.misc.call.getcallable(self.__callable__)
-        params = self.misc.inspect.getargspec(_call)[0]
+        _call = getcallable(self.__callable__)
+        params = inspect.getargspec(_call)[0]
         # Set Keyword Arguments
         for key in kwargs:
             if key in params:
@@ -55,9 +60,9 @@ class Caller(resolvable.Resolvable):
     # Set Caller Function
     def call(self, function):
         if not callable(function): return False
-        params = self.misc.inspect.getargspec(function)[0]
+        params = inspect.getargspec(function)[0]
         if not len(params) == 1: return False
-        function = self.misc.call.Safe(function, self.__logging__)
+        function = safe.Safe(function, self.__logging__)
         self.__caller__ = function
         return function
 
