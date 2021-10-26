@@ -17,9 +17,6 @@
 import os
 import sys
 import time
-import flask
-import flask_httpauth
-import mysql.connector
 import threading
 import schedule
 
@@ -28,7 +25,7 @@ from .modules import api
 from .modules import call
 from .modules import logs
 from .modules import time as _time
-from .modules import mysql as mysql
+from .modules import mysql as _mysql
 from .modules import threading as _threading
 from .modules import schedule as _schedule
 
@@ -50,7 +47,7 @@ threading.Promise = _threading.Promise
 log = logs.Logs()
 
 # Import MySQL Module
-MySQL = mysql.MySQL
+MySQL = _mysql.MySQL
 
 # Import API Module
 API = api.API
@@ -60,9 +57,6 @@ schedule.each = _schedule.Each()
 schedule.__thread__ = threading.Cycle(
     schedule.run_pending, delay=1
 )
-
-# Nest Flask Http-Auth Module
-flask.httpauth = flask_httpauth
 
 ##########################################################################################################################
 #                                                       MISC METHODS                                                     #
