@@ -3,8 +3,8 @@
 
 # Imports
 import flask
-import logging
 import flask_httpauth
+import logging
 from typing import Any, Callable as CallableType
 
 # Modules
