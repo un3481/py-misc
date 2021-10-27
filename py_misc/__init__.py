@@ -21,33 +21,39 @@ import threading
 import schedule
 
 # Modules
-from . import modules
+from .modules import api
+from .modules import call
+from .modules import logs
+from .modules import time as _time
+from .modules import mysql as _mysql
+from .modules import threading as _threading
+from .modules import schedule as _schedule
 
 ##########################################################################################################################
 #                                                        NEST MODULES                                                    #
 ##########################################################################################################################
 
 # Nest Time Module
-time.Delta = modules.time.Delta
+time.Delta = _time.Delta
 
 # Nest Threading Module
-threading.Cycle = modules.threading.Cycle
-threading.Async = modules.threading.Async
-threading.Serial = modules.threading.Serial
-threading.Daemon = modules.threading.Daemon
-threading.Promise = modules.threading.Promise
+threading.Cycle = _threading.Cycle
+threading.Async = _threading.Async
+threading.Serial = _threading.Serial
+threading.Daemon = _threading.Daemon
+threading.Promise = _threading.Promise
 
 # Instance Log Class
-log = modules.logs.Logs()
+log = logs.Logs()
 
 # Import MySQL Module
-MySQL = modules.mysql.MySQL
+MySQL = _mysql.MySQL
 
 # Import API Module
-API = modules.api.API
+API = api.API
 
 # Nest Schedule Module
-schedule.each = modules.schedule.Each()
+schedule.each = _schedule.Each()
 schedule.__thread__ = threading.Cycle(
     schedule.run_pending, delay=1
 )
