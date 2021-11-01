@@ -19,7 +19,7 @@ setup(
     install_requires=[
         'flask',
         'flask_httpauth',
-        'copy>=0.0',
+        'copy',
         'schedule',
         'mysql.connector'
     ]
