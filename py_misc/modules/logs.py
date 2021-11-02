@@ -54,7 +54,7 @@ class Logs(misc.Misc):
         def __t__(self):
             t = self.__timestamp__
             t =  t.strftime('%m/%d/%Y, %H:%M:%S')
-            t = '({})'.format(t)
+            t = f'({t})'
             return t
 
         @property
