@@ -42,14 +42,14 @@ class API(misc.Misc):
     @property
     def httpauth(self):
         return flask_httpauth
-    
+   
     # Set Host
-    def host(self, host):
+    def host(self, host: str):
         self.__host__ = host
         return self
     
     # Set Port
-    def port(self, port):
+    def port(self, port: int):
         self.__port__ = port
         return self
     
