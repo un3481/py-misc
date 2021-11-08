@@ -37,6 +37,9 @@ class Express(misc.Misc):
         # Set Routes Dictionary
         self.__routes__ = dict()
 
+        # Set Default Host
+        self.__host__ = '0.0.0.0'
+
     @property
     def flask(self):
         return flask
