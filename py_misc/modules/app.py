@@ -10,30 +10,32 @@ from typing import Any, Callable as CallableType
 # Modules
 from . import misc
 from . import call
-from . import threading as _threading
+from . import threading
 
 ##########################################################################################################################
-#                                                            API                                                         #
+#                                                            APP                                                         #
 ##########################################################################################################################
 
-# API Class
-class API(misc.Misc):
-    # Init API
+# Express Class
+class Express(misc.Misc):
+
+    # Init Server
     def __init__(self, log=True):
         # Check Parameters
         if not isinstance(log, bool):
             self = False
             return None
+        
         # Define App
-        self.__app__ = self.flask.Flask(__name__)
+        self.__server__ = self.flask.Flask(__name__)
+
         # Remove Flask Logging
         if not log:
-            self.__app__.logger.disabled = True
+            self.__server__.logger.disabled = True
             logging.getLogger('werkzeug').disabled = True
+        
         # Set Routes Dictionary
         self.__routes__ = dict()
-        # Set Server Params
-        self.host(None).port(None)
 
     @property
     def flask(self):
@@ -76,8 +78,11 @@ class API(misc.Misc):
         if (self.__host__ == None or
             self.__port__ == None): return False
         try: # Start Server on Daemon Thread
-            self.__thread__ = _threading.Daemon(
-                lambda: self.__app__.run(host=self.__host__, port=self.__port__)
+            self.__thread__ = threading.Daemon(
+                lambda: self.__server__.run(
+                    host=self.__host__,
+                    port=self.__port__
+                )
             )
         except: return False
         # Return True
@@ -91,7 +96,7 @@ class Route(call.Callable):
     # Init Route
     def __init__(
         self,
-        api: API,
+        app: Express,
         function: CallableType[[flask.Request, flask.Response], Any],
         route: str,
         methods: list[str]
@@ -104,38 +109,39 @@ class Route(call.Callable):
         
         # Set Callable
         self.__callable__ = call.Safe(function)
-        # Set API
-        self.__api__ = api
+
+        # Set APP
+        self.app = app
         self.__route__ = str(route)
-        self.__auth__ = self.__api__.httpauth.HTTPBasicAuth()
-        # Set Auth Params
-        self.user(None).password(None)
+        self.__auth__ = self.app.httpauth.HTTPBasicAuth()
+
+        # Set Users
+        self.users: dict[str, str] = dict()
+
         # Auth Verify
         @self.__auth__.verify_password
-        def __auth__(user, password):
-            a = (self.__user__ == user or
-                self.__user__ == None)
-            b = (self.__password__ == password or
-                self.__password__ == None)
-            if a and b: return user
+        def __auth__(user: str, password: str):
+            # If No User Set
+            if not self.users: return user
+            if user not in self.users: return
+            if password != self.users[user]: return
+            else: return user
+        
         # Create Dynamic Named Function
         def __route__():
-            req = self.__api__.flask.request
-            res = self.__api__.flask.Response
+            req = self.app.flask.request
+            res = self.app.flask.Response
             return self.__callable__(req, res)
+        
         # Set Dynamic Route Name
         __route__.__name__ = route.replace('/','_')
+
         # Route Flask App
-        self.__api__.__app__.route(self.__route__, methods=methods)(
+        self.app.__server__.route(
+            self.__route__,
+            methods=methods
+        )(
             self.__auth__.login_required(__route__)
         )
-    # Set User
-    def user(self, user):
-        self.__user__ = user
-        return self
-    # Set Password
-    def password(self, password):
-        self.__password__ = password
-        return self
     
 ##########################################################################################################################
