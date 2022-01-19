@@ -2,23 +2,14 @@
 ##########################################################################################################################
 
 # Imports
-import threading
+from threading import *
 
 # Modules
-from . import cycle
-from . import _async
-from . import serial
-from . import daemon
-from . import promise
-
-##########################################################################################################################
-
-# Nest Classes
-Cycle = cycle.Cycle
-Async = _async.Async
-Serial = serial.Serial
-Daemon = daemon.Daemon
-Promise = promise.Promise
+from .cycle import Cycle
+from .caller import Async
+from .serial import Serial
+from .daemon import Daemon
+from .promise import Promise
 
 ##########################################################################################################################
 
@@ -29,8 +20,8 @@ def wait_all(promises):
 
 # Current Thread is Main
 def is_main():
-    cur = threading.current_thread()
-    main = threading.main_thread()
+    cur = current_thread()
+    main = main_thread()
     return cur is main
 
 ##########################################################################################################################

@@ -2,17 +2,15 @@
 ##########################################################################################################################
 
 # Imports
-import threading
+from threading import Thread
 
 # Modules
-from .. import call
+from ..call import Safe, Resolvable
 
-##########################################################################################################################
-#                                                          DAEMON                                                        #
 ##########################################################################################################################
 
 # Daemon Class
-class Daemon(call.Resolvable):
+class Daemon(Resolvable):
 
     # Init Daemon
     def __init__(self, function, start=True, log=True):
@@ -23,17 +21,13 @@ class Daemon(call.Resolvable):
             self = False
             return None
         # Init Resolvable
-        function = call.Safe(function, log)
+        function = Safe(function, log)
         super().__init__(function, log)
         # Set Thread
-        self.__thread__ = self.threading.Thread(target=self.__callable__)
+        self.__thread__ = Thread(target=self.__callable__)
         self.__thread__.daemon = True
         # Start Thread
         if start: self.start()
-
-    @property
-    def threading(self):
-        return threading
 
     @property
     def start(self):

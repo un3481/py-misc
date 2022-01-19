@@ -2,15 +2,13 @@
 ##########################################################################################################################
 
 # Modules
-from .. import call
-from . import daemon
+from ..call import Safe, Caller
+from .daemon import Daemon
 
-##########################################################################################################################
-#                                                         PROMISE                                                        #
 ##########################################################################################################################
 
 # Promise Class
-class Promise(daemon.Daemon):
+class Promise(Daemon):
     
     # Init Promise
     def __init__(self, function, start=True):
@@ -20,7 +18,7 @@ class Promise(daemon.Daemon):
             self = False
             return None
         # Set Caller
-        self.__caller__ = call.Caller(function, log=False)
+        self.__caller__ = Caller(function, log=False)
         self.__caller__.__pass__ = True
         # Set Caller Arguments
         self.__caller__.setargs(*self.args, **self.kwargs)
@@ -68,7 +66,7 @@ class Promise(daemon.Daemon):
     def __settrig__(self, function, resolve):
         # Nest Objects
         if not callable(function): return None
-        function = call.Safe(function)
+        function = Safe(function)
         if resolve: self.__then__ = function
         else: self.__catch__ = function
         # Return Thread

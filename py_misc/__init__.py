@@ -7,89 +7,18 @@
 #                                                    Author: Anthony                                                     #
 #                                   -------------------- Python3 --------------------                                    #
 #                                                 * Under Development *                                                  #
-#                                      https://github.com/anthony-freitas/py-misc                                        #
+#                                        https://github.com/melon-yellow/py-misc                                         #
 #                                                                                                                        #
 ##########################################################################################################################
 #                                                       MAIN CODE                                                        #
 ##########################################################################################################################
 
-# Imports
-import os
-import sys
-import time
-import threading
-import schedule
-
 # Modules
-from .modules import app
 from .modules import call
-from .modules import logs
-from .modules import time as _time
-from .modules import mysql as _mysql
-from .modules import threading as _threading
-from .modules import schedule as _schedule
-
-##########################################################################################################################
-#                                                        NEST MODULES                                                    #
-##########################################################################################################################
-
-# Nest Time Module
-time.Delta = _time.Delta
-
-# Nest Threading Module
-threading.Cycle = _threading.Cycle
-threading.Async = _threading.Async
-threading.Serial = _threading.Serial
-threading.Daemon = _threading.Daemon
-threading.Promise = _threading.Promise
-
-# Instance Log Class
-log = logs.Logs()
-
-# Import MySQL Module
-MySQL = _mysql.MySQL
-
-# Import HTTP App Module
-Express = app.Express
-
-# Nest Schedule Module
-schedule.each = _schedule.Each()
-schedule.__thread__ = threading.Cycle(
-    schedule.run_pending, delay=1
-)
-
-##########################################################################################################################
-#                                                       MISC METHODS                                                     #
-##########################################################################################################################
-
-# Get Location of Main Script
-def __schema__():
-    path = sys.modules['__main__'].__file__
-    path = os.path.abspath(path)
-    return path
-
-# Get Reference Object
-def proxy_reference(obj):
-    reference = [obj]
-    while hasattr(reference[-1], '__proxy__'):
-        reference.append(reference[-1].__proxy__)
-    return reference[-1]
-
-# Get Location of Object in Script
-def locale(obj):
-    reference = proxy_reference(obj)
-    module = reference.__module__ if hasattr(reference, '__module__') else '__main__'
-    module = module if module.startswith('__main__') else '::'.join(('__main__', module))
-    qual = reference.__qualname__ if hasattr(reference, '__qualname__') else '__?__'
-    locale = '::'.join((module, qual))
-    locale = locale.replace('.<locals>.', '::')
-    return locale
-
-# Keep Alive
-def keepalive():
-    try: # Keep Main Thread Alive
-        while True: pass
-    except KeyboardInterrupt: pass
+from .modules import time
+from .modules import threading
+from .modules import schedule
+from .modules import express
 
 ##########################################################################################################################
 #                                                           END                                                          #

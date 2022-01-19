@@ -2,22 +2,21 @@
 ##########################################################################################################################
 
 # Imports
+import logging
 import flask
 import flask_httpauth
-import logging
-from typing import Any, Callable as CallableType
+from typing import Any, Callable
 
 # Modules
-from . import misc
-from . import call
-from . import threading
+from .call import Safe, Callable as CallableClass
+from .threading import Daemon
 
 ##########################################################################################################################
 #                                                            APP                                                         #
 ##########################################################################################################################
 
 # Express Class
-class Express(misc.Misc):
+class Express:
 
     # Init Server
     def __init__(self, log=True):
@@ -65,7 +64,7 @@ class Express(misc.Misc):
         methods: list[str] = ['GET', 'POST']
     ):
         def __decorator__(
-            function: CallableType[[flask.Request, flask.Response], Any]
+            function: Callable[[flask.Request, flask.Response], Any]
         ):
             if (not callable(function) or
                 not isinstance(route, str)): return False
@@ -81,7 +80,7 @@ class Express(misc.Misc):
         if (self.__host__ == None or
             self.__port__ == None): return False
         try: # Start Server on Daemon Thread
-            self.__thread__ = threading.Daemon(
+            self.__thread__ = Daemon(
                 lambda: self.__server__.run(
                     host=self.__host__,
                     port=self.__port__
@@ -90,17 +89,17 @@ class Express(misc.Misc):
         except: return False
         # Return True
         return True
-    
+
 ##########################################################################################################################
     
 # Route Class
-class Route(call.Callable):
+class Route(CallableClass):
 
     # Init Route
     def __init__(
         self,
         app: Express,
-        function: CallableType[[flask.Request, flask.Response], Any],
+        function: Callable[[flask.Request, flask.Response], Any],
         route: str,
         methods: list[str]
     ):
@@ -111,7 +110,7 @@ class Route(call.Callable):
             return None
         
         # Set Callable
-        self.__callable__ = call.Safe(function)
+        self.__callable__ = Safe(function)
 
         # Set APP
         self.app = app

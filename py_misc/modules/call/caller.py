@@ -1,22 +1,18 @@
 
 ##########################################################################################################################
-#                                                          CALLER                                                        #
-##########################################################################################################################
 
 # Imports
 import inspect
 
 # Modules
-from . import safe
-from . import resolvable
-from . import methods
+from .safe import Safe
+from .resolvable import Resolvable
+from . import getcallable
 
-##########################################################################################################################
-#                                                          CALLER                                                        #
 ##########################################################################################################################
 
 # Safe Class
-class Caller(resolvable.Resolvable):
+class Caller(Resolvable):
 
     # Init Safe
     def __init__(self, function, log=True):
@@ -26,7 +22,7 @@ class Caller(resolvable.Resolvable):
             self = False
             return None
         # Init Resolvable
-        function = safe.Safe(function, log)
+        function = Safe(function, log)
         super().__init__(function, log)
         # Set Default Caller
         self.call(lambda obj: obj.__callable__(*obj.args, **obj.kwargs))
@@ -41,7 +37,7 @@ class Caller(resolvable.Resolvable):
     # Set Caller Arguments
     def setargs(self, *args, **kwargs):
         _params = (list(), dict())
-        _call = methods.getcallable(self.__callable__)
+        _call = getcallable(self.__callable__)
         params = inspect.getargspec(_call)[0]
         # Set Keyword Arguments
         for key in kwargs:
@@ -62,7 +58,7 @@ class Caller(resolvable.Resolvable):
         if not callable(function): return False
         params = inspect.getargspec(function)[0]
         if not len(params) == 1: return False
-        function = safe.Safe(function, self.__logging__)
+        function = Safe(function, self.__logging__)
         self.__caller__ = function
         return function
 
@@ -74,6 +70,4 @@ class Caller(resolvable.Resolvable):
         # Execute Caller
         return self.__caller__(self)
 
-##########################################################################################################################
-#                                                          CALLER                                                        #
 ##########################################################################################################################

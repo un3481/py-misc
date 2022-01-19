@@ -2,20 +2,17 @@
 ##########################################################################################################################
 
 # Imports
-import time
 import datetime
 
 # Modules
-from .. import time as _time
-from . import resolvable
-from . import safe
+from .. import time
+from .safe import Safe
+from .resolvable import Resolvable
 
-##########################################################################################################################
-#                                                            TRY                                                         #
 ##########################################################################################################################
 
 # Try Class
-class Repeat(resolvable.Resolvable):
+class Repeat(Resolvable):
 
     # Init Daemon
     def __init__(self, times=3, delay=1, timeout=60, function=None, condition=None):
@@ -33,7 +30,7 @@ class Repeat(resolvable.Resolvable):
         if function == None: function = (lambda: None)
         if condition == None: condition = (lambda obj: obj.resolved)
         # Init Resolvable
-        function = safe.Safe(function, False)
+        function = Safe(function, False)
         super().__init__(function, False)
         # Set Bypass to False
         self.__pass__ = False
@@ -42,7 +39,7 @@ class Repeat(resolvable.Resolvable):
         # Set Parameters
         self.__times__ = int(3)
         self.__delay__ = float(0)
-        self.__delta__ = _time.Delta()
+        self.__delta__ = time.Delta()
         self.__timeout__ = datetime.timedelta(seconds=60)
         # Call Setters
         self.times(times)
@@ -92,7 +89,7 @@ class Repeat(resolvable.Resolvable):
         # Fix None Function
         function = (function if function != None
             else (lambda: None))
-        function = safe.Safe(function)
+        function = Safe(function)
         self.__callable__ = function
         return function
 
@@ -104,7 +101,7 @@ class Repeat(resolvable.Resolvable):
         # Fix None Function
         function = (function if function != None
             else (lambda obj: obj.resolved))
-        function = safe.Safe(function)
+        function = Safe(function)
         self.__condition__ = function
         return function
 

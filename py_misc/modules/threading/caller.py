@@ -1,18 +1,14 @@
 
 ##########################################################################################################################
 
-# Import
-import threading
-
 # Modules
-from .. import call
+from .promise import Promise
+from ..call import Caller
 
-##########################################################################################################################
-#                                                           ASYNC                                                        #
 ##########################################################################################################################
 
 # Async Class
-class Async(call.Caller):
+class Async(Caller):
 
     # Init Async
     def __init__(self, function, log=False):
@@ -26,13 +22,9 @@ class Async(call.Caller):
         # Caller to Promise
         @self.call
         def __promise__(obj):
-            __caller__ = call.Caller(obj.__callable__)
+            __caller__ = Caller(obj.__callable__)
             __caller__.__pass__ = True
             __caller__.setargs(*obj.iargs, **obj.ikwargs)
-            return self.threading.Promise(__caller__)
+            return Promise(__caller__)
 
-    @property
-    def threading(self):
-        return threading
-            
 ##########################################################################################################################

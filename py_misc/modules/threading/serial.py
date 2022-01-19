@@ -5,14 +5,15 @@
 import queue
 
 # Modules
-from . import cycle
+from .promise import Promise
+from .cycle import Cycle
 
 ##########################################################################################################################
 #                                                           SERIAL                                                       #
 ##########################################################################################################################
 
 # Instant Scheduler Class
-class Serial(cycle.Cycle):
+class Serial(Cycle):
 
     # Init Now
     def __init__(self, start=True):
@@ -40,7 +41,7 @@ class Serial(cycle.Cycle):
     def add(self, function):
         # Check for Callable
         if not callable(function): return False
-        function = self.threading.Promise(function, False)
+        function = Promise(function, False)
         self.__queue__.put(function)
         # Return Promise
         return function
