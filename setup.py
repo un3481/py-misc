@@ -13,13 +13,11 @@ setup(
         'py_misc',
         'py_misc/modules',
         'py_misc/modules/call',
-        'py_misc/modules/time',
         'py_misc/modules/threading'
     ],
     install_requires=[
         'flask',
         'flask_httpauth',
-        'schedule',
-        'mysql.connector'
+        'schedule'
     ]
 )
