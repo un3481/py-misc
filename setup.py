@@ -8,7 +8,7 @@ setup(
     license='MIT',
     description='Python Miscellaneous Library',
     author='anthony',
-    url='https://github.com/anthony-freitas/py-misc',
+    url='https://github.com/melon-yellow/py-misc',
     packages=[
         'py_misc',
         'py_misc/modules',
