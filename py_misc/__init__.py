@@ -14,8 +14,9 @@
 ##########################################################################################################################
 
 # Modules
-from .modules import call
+from .modules import elixir
 from .modules import time
+from .modules import call
 from .modules import threading
 from .modules import schedule
 from .modules import express
