@@ -3,7 +3,7 @@
 
 # Imports
 from time import *
-import datetime
+from datetime import datetime
 
 ##########################################################################################################################
 
@@ -21,16 +21,16 @@ class Since:
     def __init__(self): self.reset()
     # Reset Delta
     def reset(self):
-        self.__start__ = datetime.datetime.now()
-        self.__last__ = datetime.datetime.now()
+        self.__start__ = datetime.now()
+        self.__last__ = datetime.now()
         self.__delta__ = (self.__last__ - self.__start__)
     @property
     def init(self):
-        self.__last__ = datetime.datetime.now()
+        self.__last__ = datetime.now()
         return (self.__last__ - self.__start__)
     @property
     def last(self):
-        now = datetime.datetime.now()
+        now = datetime.now()
         self.__delta__ = (now - self.__last__)
         self.__last__ = now
         return self.__delta__

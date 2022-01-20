@@ -2,7 +2,7 @@
 ##########################################################################################################################
 
 # Import
-import queue
+from queue import Queue
 
 # Modules
 from .promise import Promise
@@ -22,13 +22,9 @@ class Serial(Cycle):
             self = False
             return None
         # Define Execution Series
-        self.__queue__ = self.queue.Queue()
+        self.__queue__ = Queue()
         # Set Thread Object
         super().__init__(self.__pending__, start)
-
-    @property
-    def queue(self):
-        return queue
 
     # Run Pending
     def __pending__(self):

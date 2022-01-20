@@ -5,9 +5,9 @@
 import datetime
 
 # Modules
-from .. import time
 from .safe import Safe
 from .resolvable import Resolvable
+from ..time import sleep, Delta
 
 ##########################################################################################################################
 
@@ -39,7 +39,7 @@ class Repeat(Resolvable):
         # Set Parameters
         self.__times__ = int(3)
         self.__delay__ = float(0)
-        self.__delta__ = time.Delta()
+        self.__delta__ = Delta()
         self.__timeout__ = datetime.timedelta(seconds=60)
         # Call Setters
         self.times(times)
@@ -131,7 +131,7 @@ class Repeat(Resolvable):
             condition = self.__condition__(self.__callable__)
             if condition: self.__resolve__(value)
             # Wait Delay
-            time.sleep(self.__delay__)
+            sleep(self.__delay__)
         # Reject
         if not self.resolved:
             self.__reject__('Max Attempts Exeeded')

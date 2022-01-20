@@ -7,7 +7,7 @@ import inspect
 # Modules
 from .safe import Safe
 from .resolvable import Resolvable
-from . import getcallable
+from .methods import getcallable
 
 ##########################################################################################################################
 

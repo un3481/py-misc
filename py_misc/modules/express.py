@@ -2,9 +2,9 @@
 ##########################################################################################################################
 
 # Imports
-import logging
-import flask
-import flask_httpauth
+from logging import getLogger
+from flask import Flask, Response, Request, request
+from flask_httpauth import HTTPBasicAuth
 from typing import Any, Callable
 
 # Modules
@@ -26,26 +26,18 @@ class Express:
             return None
         
         # Define App
-        self.__server__ = self.flask.Flask(__name__)
+        self.__server__ = Flask(__name__)
 
         # Remove Flask Logging
         if not log:
             self.__server__.logger.disabled = True
-            logging.getLogger('werkzeug').disabled = True
+            getLogger('werkzeug').disabled = True
         
         # Set Routes Dictionary
         self.__routes__ = dict()
 
         # Set Default Host
         self.__host__ = '0.0.0.0'
-
-    @property
-    def flask(self):
-        return flask
-    
-    @property
-    def httpauth(self):
-        return flask_httpauth
    
     # Set Host
     def host(self, host: str):
@@ -64,7 +56,7 @@ class Express:
         methods: list[str] = ['GET', 'POST']
     ):
         def __decorator__(
-            function: Callable[[flask.Request, flask.Response], Any]
+            function: Callable[[Request, Response], Any]
         ):
             if (not callable(function) or
                 not isinstance(route, str)): return False
@@ -99,7 +91,7 @@ class Route(CallableClass):
     def __init__(
         self,
         app: Express,
-        function: Callable[[flask.Request, flask.Response], Any],
+        function: Callable[[Request, Response], Any],
         route: str,
         methods: list[str]
     ):
@@ -115,7 +107,7 @@ class Route(CallableClass):
         # Set APP
         self.app = app
         self.__route__ = str(route)
-        self.__auth__ = self.app.httpauth.HTTPBasicAuth()
+        self.__auth__ = HTTPBasicAuth()
 
         # Set Users
         self.users: dict[str, str] = dict()
@@ -131,9 +123,7 @@ class Route(CallableClass):
         
         # Create Dynamic Named Function
         def __route__():
-            req = self.app.flask.request
-            res = self.app.flask.Response
-            return self.__callable__(req, res)
+            return self.__callable__(request, Response)
         
         # Set Dynamic Route Name
         __route__.__name__ = route.replace('/','_')
