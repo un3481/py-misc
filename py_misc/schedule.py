@@ -140,30 +140,30 @@ class EachPeriod:
     def __init__(self, step: int):
         self.step = step
     @property
-    def second(self): return EachPeriodDef('second', self.step)
+    def second(self): return EachPeriodDuration('second', self.step)
     @property
-    def seconds(self): return EachPeriodDef('seconds', self.step)
+    def seconds(self): return EachPeriodDuration('seconds', self.step)
     @property
-    def minute(self): return EachPeriodDef('minute', self.step)
+    def minute(self): return EachPeriodDuration('minute', self.step)
     @property
-    def minutes(self): return EachPeriodDef('minutes', self.step)
+    def minutes(self): return EachPeriodDuration('minutes', self.step)
     @property
-    def hour(self): return EachPeriodDef('hour', self.step)
+    def hour(self): return EachPeriodDuration('hour', self.step)
     @property
-    def hours(self): return EachPeriodDef('hours', self.step)
+    def hours(self): return EachPeriodDuration('hours', self.step)
     @property
-    def day(self): return EachPeriodDef('day', self.step)
+    def day(self): return EachPeriodDuration('day', self.step)
     @property
-    def days(self): return EachPeriodDef('days', self.step)
+    def days(self): return EachPeriodDuration('days', self.step)
     @property
-    def week(self): return EachPeriodDef('week', self.step)
+    def week(self): return EachPeriodDuration('week', self.step)
     @property
-    def weeks(self): return EachPeriodDef('weeks', self.step)
+    def weeks(self): return EachPeriodDuration('weeks', self.step)
 
 ##########################################################################################################################
 
 # Period Class
-class EachPeriodDef:
+class EachPeriodDuration:
     # Init Period
     def __init__(self, period: str, step: int):
         self.every = every(step)

@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='py_misc',
-    version='2.1.0',
+    version='2.1.1',
     license='MIT',
     description='Python Miscellaneous Library',
     author='anthony',
