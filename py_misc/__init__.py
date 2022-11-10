@@ -7,7 +7,7 @@
 #                                                    Author: Anthony                                                     #
 #                                   -------------------- Python3 --------------------                                    #
 #                                                 * Under Development *                                                  #
-#                                        https://github.com/melon-yellow/py-misc                                         #
+#                                           https://github.com/un3481/py-misc                                            #
 #                                                                                                                        #
 ##########################################################################################################################
 #                                                        MODULE                                                          #
